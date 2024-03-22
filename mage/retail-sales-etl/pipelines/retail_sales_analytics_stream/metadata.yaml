@@ -1,0 +1,26 @@
+blocks: []
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-03-22 19:40:12.989351+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: local_python
+extensions: {}
+name: retail sales analytics stream
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: streaming
+updated_at: null
+uuid: retail_sales_analytics_stream
+variables_dir: /home/src/mage_data/retail-sales-etl
+widgets: []
