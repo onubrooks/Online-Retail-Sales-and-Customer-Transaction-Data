@@ -2,7 +2,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - transform_dataset_1
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -18,14 +19,14 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - kafka_producer
+  - transform_dataset_2
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: ingest dataset 2
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
@@ -33,7 +34,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - transform_dataset_3
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -48,7 +50,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - transform_dataset_4
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -61,21 +64,84 @@ blocks:
   upstream_blocks: []
   uuid: ingest_dataset_4
 - all_upstream_blocks_executed: true
-  color: blue
+  color: null
   configuration: {}
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: kafka_producer
+  name: kafka_test
   retry_config: null
-  status: failed
+  status: updated
   timeout: null
-  type: custom
+  type: scratchpad
+  upstream_blocks: []
+  uuid: kafka_test
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_dataset_1
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - ingest_dataset_1
+  uuid: transform_dataset_1
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_dataset_2
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
   upstream_blocks:
   - ingest_dataset_2
-  uuid: kafka_producer
+  uuid: transform_dataset_2
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_dataset_3
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - ingest_dataset_3
+  uuid: transform_dataset_3
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_dataset_4
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - ingest_dataset_4
+  uuid: transform_dataset_4
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -97,7 +163,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-03-22 21:26:39'
+updated_at: '2024-03-25 17:11:42'
 uuid: retail_sales_analytics
 variables_dir: /home/src/mage_data/retail-sales-etl
 widgets: []
