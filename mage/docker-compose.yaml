@@ -1,7 +1,13 @@
-version: '3'
+version: '3.6'
+networks:
+  default:
+    name: retail-sales-etl-network
+    external: true
 services:
   magic:
     image: mageai/mageai:latest
+    networks:
+      - default
     command: mage start ${PROJECT_NAME}
     env_file:
       - .env
@@ -34,3 +40,5 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "${POSTGRES_PORT}:5432"
+
+
