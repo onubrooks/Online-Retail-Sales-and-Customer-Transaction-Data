@@ -3,6 +3,23 @@ if 'transformer' not in globals():
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
+import pandas as pd
+schema = {
+    'invoice_no': 'str',
+    'stock_code': 'str',
+    'description': 'str',
+    'invoice_date': 'str',
+    'unit_price': 'float64',
+    'quantity': 'float64',
+    'customer_country': 'str',
+    'customer_id': 'str',
+    'source': 'str',
+    'gender': 'str',
+    'age': 'int64',
+    'category': 'str',
+    'payment_method': 'str',
+    'shopping_mall': 'str'
+}
 
 @transformer
 def transform(data, *args, **kwargs):
@@ -19,9 +36,27 @@ def transform(data, *args, **kwargs):
     Returns:
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
-    # Specify your transformation logic here
+    columns = {
+        'InvoiceNo': 'invoice_no',
+        'StockCode': 'stock_code',
+        'Description': 'description',
+        'Quantity': 'quantity',
+        'InvoiceDate': 'invoice_date',
+        'UnitPrice': 'unit_price',
+        'CustomerID': 'customer_id',
+        'Country': 'customer_country',
+    }
+    transform = data.rename(columns=columns)
 
-    return data
+    new_cols = {'gender': 'Unknown', 'age': 999999, 'category': 'Unknown', 'payment_method': 'Unknown', 'shopping_mall': 'Unknown', 'source': 'uk_non_store_retail'} 
+    transform = transform.assign(**new_cols)  # Unpack dictionary as arguments
+
+    transform = transform.reindex(columns=schema.keys()).astype(schema)
+    
+    transform['invoice_date'] = pd.to_datetime(transform['invoice_date'], format='%Y-%m-%d %H:%M:%S') 
+    transform['invoice_date'] = transform['invoice_date'].dt.strftime('%Y-%m-%d %H:%M:%S')
+    
+    return transform
 
 
 @test
