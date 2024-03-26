@@ -4,7 +4,8 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 from pyspark.sql import SparkSession
-from utils.pyspark_utils import read_bigquery_data, union_and_drop_duplicates, clean_data, write_to_bigquery
+from retail_sales_etl.utils.utils import project_id, dataset_name, dataset_1, dataset_2, dataset_3, dataset_4, retail_dataset_merged
+from retail_sales_etl.utils.pyspark_utils import read_bigquery_data, union_and_drop_duplicates, clean_data, write_to_bigquery
 
 @custom
 def transform_custom(*args, **kwargs):
@@ -21,16 +22,13 @@ def transform_custom(*args, **kwargs):
     # Configure SparkSession with BigQuery connector
     spark = SparkSession.builder.appName("BigQuery Data Merge").getOrCreate()
 
-    # Replace with your actual values
-    project_id = "your-project-id"
-    dataset_name = "your_dataset"
     table_names = [
-        f"{project_id}.{dataset_name}.table1",
-        f"{project_id}.{dataset_name}.table2",
-        f"{project_id}.{dataset_name}.table3",
-        f"{project_id}.{dataset_name}.table4",
+        f"{project_id}.{dataset_name}.{dataset_1}",
+        f"{project_id}.{dataset_name}.{dataset_2}",
+        f"{project_id}.{dataset_name}.{dataset_3}",
+        f"{project_id}.{dataset_name}.{dataset_4}",
     ]
-    output_table = f"{project_id}.{dataset_name}.merged_table"
+    output_table = f"{project_id}.{dataset_name}.{retail_dataset_merged}"
 
     # Read data from BigQuery tables
     dfs = read_bigquery_data(spark, project_id, dataset_name, table_names)

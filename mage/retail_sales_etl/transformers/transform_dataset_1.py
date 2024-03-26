@@ -4,22 +4,7 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 import pandas as pd
-schema = {
-    'invoice_no': 'str',
-    'stock_code': 'str',
-    'description': 'str',
-    'invoice_date': 'str',
-    'unit_price': 'float64',
-    'quantity': 'float64',
-    'customer_country': 'str',
-    'customer_id': 'str',
-    'source': 'str',
-    'gender': 'str',
-    'age': 'int64',
-    'category': 'str',
-    'payment_method': 'str',
-    'shopping_mall': 'str'
-}
+from retail_sales_etl.utils.utils import schema
 
 @transformer
 def transform(data, *args, **kwargs):

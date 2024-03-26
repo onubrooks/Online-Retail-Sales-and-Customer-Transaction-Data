@@ -24,7 +24,7 @@ def load_data_from_api(*args, **kwargs):
     
         # Extract the first CSV file
         with zip_ref.open(csv_filename) as csv_file:
-            df = pd.read_csv(csv_file, index_col=0)  # Read the CSV data into a DataFrame
+            df = pd.read_csv(csv_file)
 
     return df
 
