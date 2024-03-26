@@ -54,5 +54,5 @@ tags: []
 type: streaming
 updated_at: '2024-03-23 12:53:47'
 uuid: retail_sales_analytics_stream
-variables_dir: /home/src/mage_data/retail-sales-etl
+variables_dir: /home/src/mage_data/retail_sales_etl
 widgets: []

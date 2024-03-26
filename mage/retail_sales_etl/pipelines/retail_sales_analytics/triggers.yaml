@@ -1,0 +1,14 @@
+triggers:
+- envs: []
+  last_enabled_at: 2024-03-26 14:56:26.979872+00:00
+  name: indigo myth
+  pipeline_uuid: retail_sales_analytics
+  schedule_interval: null
+  schedule_type: api
+  settings: {}
+  sla: null
+  start_time: 2024-03-26 14:24:00
+  status: active
+  variables:
+    batch: true
+    dataset: all
