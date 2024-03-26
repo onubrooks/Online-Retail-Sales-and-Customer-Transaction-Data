@@ -295,7 +295,8 @@ blocks:
     export_write_policy: replace
     limit: 1000
     use_raw_sql: false
-  downstream_blocks: []
+  downstream_blocks:
+  - process_data_pyspark
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -321,7 +322,8 @@ blocks:
     export_write_policy: replace
     limit: 1000
     use_raw_sql: false
-  downstream_blocks: []
+  downstream_blocks:
+  - process_data_pyspark
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -348,7 +350,8 @@ blocks:
     export_write_policy: replace
     limit: 1000
     use_raw_sql: false
-  downstream_blocks: []
+  downstream_blocks:
+  - process_data_pyspark
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -405,11 +408,14 @@ blocks:
   language: python
   name: process_data_pyspark
   retry_config: null
-  status: updated
+  status: failed
   timeout: null
   type: custom
   upstream_blocks:
   - to_bigquery_dataset_4
+  - to_bigquery_dataset_3
+  - to_bigquery_dataset_2
+  - to_bigquery_dataset_1
   uuid: process_data_pyspark
 cache_block_output_in_memory: false
 callbacks: []

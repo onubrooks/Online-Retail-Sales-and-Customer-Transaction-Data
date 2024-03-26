@@ -7,14 +7,14 @@ def read_bigquery_data(spark, project_id, dataset_name, table_names):
 
   Args:
       spark (SparkSession): SparkSession object.
-      project_id (str): Your Google Cloud project ID.
+      project_id (str): Google Cloud project ID.
       dataset_name (str): Name of the dataset containing your BigQuery tables.
       table_names (list): List of BigQuery table names to read from.
 
   Returns:
       list: List of Spark DataFrames, one for each table.
   """
-  dfs = [spark.read.format("bigquery").load(f"{project_id}.{dataset_name}.{table_name}") for table_name in table_names]
+  dfs = [spark.read.format("bigquery").option("credentialsFile", "/home/src/retail_sales_etl/secrets/google.json").load(f"{project_id}.{dataset_name}.{table_name}") for table_name in table_names]
   return dfs
 
 
@@ -43,7 +43,7 @@ def clean_data(df):
       pyspark.sql.DataFrame: The cleaned DataFrame.
   """
   # Replace None or empty strings with appropriate values (e.g., null)
-  df = df.fillna(value="")  # Adjust based on data types and cleaning requirements
+  # df = df.fillna(value="")  # Adjust based on data types and cleaning requirements
 
   # Handle casting data types if necessary (e.g., converting strings to numerics)
   # df = df.withColumn("cast_column", df["string_column"].cast("int"))
@@ -69,6 +69,8 @@ def write_to_bigquery(df, project_id, dataset_name, output_table):
 def main():
   """
   This function is the entry point for the script. It reads BigQuery data, merges, cleans, and writes it back.
+  Spark submit: 
+  spark-submit --jars gs://spark-lib/bigquery/spark-bigquery-latest.jar my_job.py
   """
 
   # Configure SparkSession with BigQuery connector
