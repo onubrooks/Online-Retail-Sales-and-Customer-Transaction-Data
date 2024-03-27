@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
+from retail_sales_etl.utils.utils import credentials_path, gcp_bucket
 
-
-def read_bigquery_data(spark, project_id, dataset_name, table_names):
+def read_bigquery_data(spark, project_id, table_names):
   """
   This function reads data from multiple BigQuery tables into separate DataFrames.
 
@@ -14,7 +14,15 @@ def read_bigquery_data(spark, project_id, dataset_name, table_names):
   Returns:
       list: List of Spark DataFrames, one for each table.
   """
-  dfs = [spark.read.format("bigquery").option("credentialsFile", "/home/src/retail_sales_etl/secrets/google.json").load(f"{project_id}.{dataset_name}.{table_name}") for table_name in table_names]
+  dfs = [
+    spark.read.format("bigquery") \
+      .option("credentialsFile", credentials_path) \
+      .option("parentProject", project_id) \
+      .option("table", table_name) \
+      .load()
+      #.load(f"{project_id}.{dataset_name}.{table_name}") \
+      for table_name in table_names
+  ]
   return dfs
 
 
@@ -28,7 +36,9 @@ def union_and_drop_duplicates(dfs):
   Returns:
       pyspark.sql.DataFrame: The unioned DataFrame with duplicates removed.
   """
-  merged_df = dfs[0].unionByName(*dfs[1:])  # Union all DataFrames
+  merged_df = dfs[0]
+  for df in dfs[1:]:
+    merged_df = merged_df.unionByName(df)
   return merged_df.dropDuplicates()  # Remove duplicate rows
 
 
@@ -53,7 +63,7 @@ def clean_data(df):
   return df
 
 
-def write_to_bigquery(df, project_id, dataset_name, output_table):
+def write_to_bigquery(df, project_id, output_table):
   """
   This function writes a DataFrame back to BigQuery.
 
@@ -63,7 +73,13 @@ def write_to_bigquery(df, project_id, dataset_name, output_table):
       dataset_name (str): Name of the dataset to write the data to.
       output_table (str): Name of the BigQuery table to store the results.
   """
-  df.write.format("bigquery").option("writeMode", "overwrite").save(f"{project_id}.{dataset_name}.{output_table}")
+  df.write.format("bigquery") \
+      .option("writeMode", "overwrite") \
+      .option("temporaryGcsBucket", gcp_bucket) \
+      .option("credentialsFile", credentials_path) \
+      .option("parentProject", project_id) \
+      .option("table", output_table) \
+      .save()
 
 
 def main():

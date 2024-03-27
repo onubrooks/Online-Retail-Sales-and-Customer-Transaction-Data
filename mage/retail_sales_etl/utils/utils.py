@@ -15,6 +15,9 @@ schema = {
     'shopping_mall': 'str'
 }
 
+credentials_path = "/home/src/retail_sales_etl/secrets/google.json"
+bq_jar_file = "/home/src/retail_sales_etl/spark-lib/spark-3.5-bigquery-0.37.0.jar"
+gcp_bucket = "mage-zoomcamp-onubrooks"
 project_id = "zoomcamp-de-411412"
 dataset_name = "retail_sales"
 dataset_1 = "dataset_1"

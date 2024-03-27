@@ -3,8 +3,9 @@ if 'custom' not in globals():
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
-from retail_sales_etl.utils.utils import project_id, dataset_name, dataset_1, dataset_2, dataset_3, dataset_4, retail_dataset_merged
+from retail_sales_etl.utils.utils import credentials_path, bq_jar_file, project_id, dataset_name, dataset_1, dataset_2, dataset_3, dataset_4, retail_dataset_merged
 from retail_sales_etl.utils.pyspark_utils import read_bigquery_data, union_and_drop_duplicates, clean_data, write_to_bigquery
+from pyspark.sql import SparkSession
 
 @custom
 def transform_custom(*args, **kwargs):
@@ -18,11 +19,6 @@ def transform_custom(*args, **kwargs):
     This function is the entry point for the pyspark script. It reads BigQuery data, merges, cleans, and writes it back.
     """
 
-    # from pyspark.sql import SparkSession
-    # Configure SparkSession with BigQuery connector
-    # spark = SparkSession.builder.appName("BigQuery Data Merge").config('spark.jars', 'gs://spark-lib/bigquery/spark-bigquery-latest.jar').getOrCreate()
-    # spark.read.format("bigquery").option("credentialsFile", "</path/to/key/file>").option("table", "<table>").load()
-
     spark = kwargs.get('spark')
 
     table_names = [
@@ -34,7 +30,7 @@ def transform_custom(*args, **kwargs):
     output_table = f"{project_id}.{dataset_name}.{retail_dataset_merged}"
 
     # Read data from BigQuery tables
-    dfs = read_bigquery_data(spark, project_id, dataset_name, table_names)
+    dfs = read_bigquery_data(spark, project_id, table_names)
 
     # Union DataFrames and drop duplicates
     merged_df = union_and_drop_duplicates(dfs)
@@ -43,7 +39,7 @@ def transform_custom(*args, **kwargs):
     cleaned_df = clean_data(merged_df)
 
     # Write cleaned data back to BigQuery
-    write_to_bigquery(cleaned_df, project_id, dataset_name, output_table)
+    write_to_bigquery(cleaned_df, project_id, output_table)
 
     spark.stop()
 
