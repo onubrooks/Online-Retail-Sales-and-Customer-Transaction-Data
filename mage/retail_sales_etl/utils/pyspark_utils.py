@@ -20,7 +20,6 @@ def read_bigquery_data(spark, project_id, table_names):
       .option("parentProject", project_id) \
       .option("table", table_name) \
       .load()
-      #.load(f"{project_id}.{dataset_name}.{table_name}") \
       for table_name in table_names
   ]
   return dfs

@@ -408,7 +408,7 @@ blocks:
   language: python
   name: process_data_pyspark
   retry_config: null
-  status: failed
+  status: updated
   timeout: null
   type: custom
   upstream_blocks:

@@ -20,6 +20,10 @@ def transform_custom(*args, **kwargs):
     """
 
     spark = kwargs.get('spark')
+    spark._jsc.hadoopConfiguration().set('fs.gs.impl', 'com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem')
+    spark._jsc.hadoopConfiguration().set('fs.AbstractFileSystem.gs.impl', 'com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS')
+    spark._jsc.hadoopConfiguration().set('fs.gs.auth.service.account.enable', 'true')
+    spark._jsc.hadoopConfiguration().set('google.cloud.auth.service.account.json.keyfile', credentials_path)
 
     table_names = [
         f"{project_id}.{dataset_name}.{dataset_1}",
@@ -35,13 +39,11 @@ def transform_custom(*args, **kwargs):
     # Union DataFrames and drop duplicates
     merged_df = union_and_drop_duplicates(dfs)
 
-    # Perform data cleaning (optional, extend `clean_data` function for specific needs)
+    # Perform data cleaning
     cleaned_df = clean_data(merged_df)
 
     # Write cleaned data back to BigQuery
     write_to_bigquery(cleaned_df, project_id, output_table)
-
-    spark.stop()
 
     return {}
 
