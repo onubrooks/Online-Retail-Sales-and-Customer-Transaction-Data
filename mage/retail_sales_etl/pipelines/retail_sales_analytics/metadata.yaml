@@ -401,14 +401,15 @@ blocks:
     data_provider_profile: default
     data_provider_schema: retail_sales
     export_write_policy: append
-  downstream_blocks: []
+  downstream_blocks:
+  - export_reports_and_analytics
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: process_data_pyspark
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: custom
   upstream_blocks:
@@ -417,6 +418,22 @@ blocks:
   - to_bigquery_dataset_2
   - to_bigquery_dataset_1
   uuid: process_data_pyspark
+- all_upstream_blocks_executed: true
+  color: teal
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_reports_and_analytics
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - process_data_pyspark
+  uuid: export_reports_and_analytics
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

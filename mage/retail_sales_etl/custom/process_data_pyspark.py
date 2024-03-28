@@ -3,7 +3,7 @@ if 'custom' not in globals():
 if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
-from retail_sales_etl.utils.utils import credentials_path, bq_jar_file, project_id, dataset_name, dataset_1, dataset_2, dataset_3, dataset_4, retail_dataset_merged
+from retail_sales_etl.utils.variables import credentials_path, bq_jar_file, bq_table_names, bq_output_table
 from retail_sales_etl.utils.pyspark_utils import read_bigquery_data, union_and_drop_duplicates, clean_data, write_to_bigquery
 from pyspark.sql import SparkSession
 
@@ -25,16 +25,8 @@ def transform_custom(*args, **kwargs):
     spark._jsc.hadoopConfiguration().set('fs.gs.auth.service.account.enable', 'true')
     spark._jsc.hadoopConfiguration().set('google.cloud.auth.service.account.json.keyfile', credentials_path)
 
-    table_names = [
-        f"{project_id}.{dataset_name}.{dataset_1}",
-        f"{project_id}.{dataset_name}.{dataset_2}",
-        f"{project_id}.{dataset_name}.{dataset_3}",
-        f"{project_id}.{dataset_name}.{dataset_4}",
-    ]
-    output_table = f"{project_id}.{dataset_name}.{retail_dataset_merged}"
-
     # Read data from BigQuery tables
-    dfs = read_bigquery_data(spark, project_id, table_names)
+    dfs = read_bigquery_data(spark, bq_table_names)
 
     # Union DataFrames and drop duplicates
     merged_df = union_and_drop_duplicates(dfs)
@@ -43,9 +35,9 @@ def transform_custom(*args, **kwargs):
     cleaned_df = clean_data(merged_df)
 
     # Write cleaned data back to BigQuery
-    write_to_bigquery(cleaned_df, project_id, output_table)
+    write_to_bigquery(cleaned_df, bq_output_table)
 
-    return {}
+    return cleaned_df
 
 
 @test

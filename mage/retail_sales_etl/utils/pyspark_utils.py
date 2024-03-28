@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
-from retail_sales_etl.utils.utils import credentials_path, gcp_bucket
+from retail_sales_etl.utils.variables import credentials_path, gcp_bucket, gcs_path, project_id
 
-def read_bigquery_data(spark, project_id, table_names):
+def read_bigquery_data(spark, table_names):
   """
   This function reads data from multiple BigQuery tables into separate DataFrames.
 
@@ -19,7 +19,8 @@ def read_bigquery_data(spark, project_id, table_names):
       .option("credentialsFile", credentials_path) \
       .option("parentProject", project_id) \
       .option("table", table_name) \
-      .load()
+      .load() \
+      .cache()
       for table_name in table_names
   ]
   return dfs
@@ -62,7 +63,7 @@ def clean_data(df):
   return df
 
 
-def write_to_bigquery(df, project_id, output_table):
+def write_to_bigquery(df, output_table):
   """
   This function writes a DataFrame back to BigQuery.
 
@@ -73,11 +74,12 @@ def write_to_bigquery(df, project_id, output_table):
       output_table (str): Name of the BigQuery table to store the results.
   """
   df.write.format("bigquery") \
-      .option("writeMode", "overwrite") \
       .option("temporaryGcsBucket", gcp_bucket) \
+      .option("temporaryGcsPath", gcs_path) \
       .option("credentialsFile", credentials_path) \
       .option("parentProject", project_id) \
       .option("table", output_table) \
+      .mode("overwrite") \
       .save()
 
 
@@ -92,8 +94,7 @@ def main():
   spark = SparkSession.builder.appName("BigQuery Data Merge").getOrCreate()
 
   # Replace with your actual values
-  project_id = "your-project-id"
-  dataset_name = "your_dataset"
+  dataset_name = "dataset"
   table_names = [
       f"{project_id}.{dataset_name}.table1",
       f"{project_id}.{dataset_name}.table2",
@@ -103,7 +104,7 @@ def main():
   output_table = f"{project_id}.{dataset_name}.merged_table"
 
   # Read data from BigQuery tables
-  dfs = read_bigquery_data(spark, project_id, dataset_name, table_names)
+  dfs = read_bigquery_data(spark, dataset_name, table_names)
 
   # Union DataFrames and drop duplicates
   merged_df = union_and_drop_duplicates(dfs)
@@ -112,7 +113,7 @@ def main():
   cleaned_df = clean_data(merged_df)
 
   # Write cleaned data back to BigQuery
-  write_to_bigquery(cleaned_df, project_id, dataset_name, output_table)
+  write_to_bigquery(cleaned_df, output_table)
 
   spark.stop()
 
