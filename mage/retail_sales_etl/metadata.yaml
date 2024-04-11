@@ -21,13 +21,15 @@ emr_config:
 
 spark_config:
   # Application name
-  app_name: 'BigQuery Data Merge'
+  app_name: 'Retail Analytics'
   # Master URL to connect to
   # e.g., spark_master: 'spark://host:port', or spark_master: 'yarn'
   spark_master: 'local'
+  # spark_master: 'spark://community.cloud.databricks.com:443/sql/protocolv1/o/108507742605280/0406-102136-eeimujza'
   # Executor environment variables
   # e.g., executor_env: {'PYTHONPATH': '/home/path'}
   executor_env: {}
+  # executor_env: {'PYSPARK_PYTHON': '/databricks/python3/bin/python3'}
   # Jar files to be uploaded to the cluster and added to the classpath
   # e.g. spark_jars: ['/home/path/example1.jar', 'https://storage.googleapis.com/spark-lib/bigquery/spark-3.5-bigquery-0.37.0.jar']
   spark_jars: ["/home/src/retail_sales_etl/spark-lib/spark-3.5-bigquery-0.37.0.jar", "/home/src/retail_sales_etl/spark-lib/gcs-connector-hadoop3-2.2.5.jar"]

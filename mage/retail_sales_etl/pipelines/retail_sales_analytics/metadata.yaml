@@ -1,7 +1,8 @@
 blocks:
 - all_upstream_blocks_executed: true
   color: null
-  configuration: {}
+  configuration:
+    dynamic: false
   downstream_blocks:
   - transform_dataset_1
   executor_config: null
@@ -421,7 +422,8 @@ blocks:
 - all_upstream_blocks_executed: true
   color: teal
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - epic_frog
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -434,6 +436,22 @@ blocks:
   upstream_blocks:
   - process_data_pyspark
   uuid: export_reports_and_analytics
+- all_upstream_blocks_executed: true
+  color: blue
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: epic frog
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - export_reports_and_analytics
+  uuid: epic_frog
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

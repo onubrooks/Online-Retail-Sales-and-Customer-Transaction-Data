@@ -15,10 +15,12 @@ RUN rm /etc/apt/sources.list.d/bullseye.list
 
 RUN ${PIP} install pyspark
 
+RUN ${PIP} install databricks-connect==14.3.1
+
 # Note: this overwrites the requirements.txt file in your new project on first run. 
 # You can delete this line for the second run :) 
 COPY requirements.txt ${USER_CODE_PATH}requirements.txt 
 
 RUN ${PIP} install -r ${USER_CODE_PATH}requirements.txt
 
-# ENV MAGE_DATA_DIR=
+ENV MAGE_DATA_DIR=
