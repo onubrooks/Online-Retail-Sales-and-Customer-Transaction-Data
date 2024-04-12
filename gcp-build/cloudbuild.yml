@@ -1,0 +1,13 @@
+# Defines the Cloud Build steps
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', '--depth=1', 'https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data', '.']
+
+- name: 'docker/dockerfile:1.8'  # Replace with appropriate Dockerfile version
+  args: ['build', '-t', 'mage-retail-analytics:1.0', '.']
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['docker', '--', 'push', 'gcr.io/zoomcamp-de-411412/mage-retail-analytics:1.0']
+
+images:
+- ['gcr.io/zoomcamp-de-411412/mage-retail-analytics:1.0']

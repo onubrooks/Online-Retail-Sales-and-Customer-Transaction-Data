@@ -6,6 +6,7 @@ networks:
 services:
   magic:
     image: mageai/mageai:latest
+    container_name: ${PROJECT_NAME}-mage
     networks:
       - default
     command: mage start ${PROJECT_NAME}

@@ -7,6 +7,7 @@ variable "credentials" {
 
 variable "project" {
   description = "Project"
+  default = "zoomcamp-de-411412"
 }
 
 variable "location" {
