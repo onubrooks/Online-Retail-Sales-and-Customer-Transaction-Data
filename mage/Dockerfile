@@ -21,4 +21,6 @@ COPY requirements.txt ${USER_CODE_PATH}requirements.txt
 
 RUN ${PIP} install -r ${USER_CODE_PATH}requirements.txt
 
+COPY . /home/src/
+
 ENV MAGE_DATA_DIR=

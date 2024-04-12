@@ -5,7 +5,7 @@ networks:
     external: true
 services:
   magic:
-    image: mageai/mageai:latest
+    image: onubrooks/${PROJECT_NAME}-mage:latest
     container_name: ${PROJECT_NAME}-mage
     networks:
       - default
@@ -25,15 +25,18 @@ services:
       POSTGRES_PORT: ${POSTGRES_PORT}
     ports:
       - 6789:6789
-    volumes:
-      - .:/home/src/
+    # volumes:
+    #   - .:/home/src/
     restart: on-failure:5
   postgres:
-    image: postgres:14
+    image: onubrooks/postgres:latest
     restart: on-failure
     container_name: ${PROJECT_NAME}-postgres
     env_file:
       - .env
+    build:
+      context: .
+      dockerfile: pg.Dockerfile
     environment:
       POSTGRES_DB: ${POSTGRES_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}

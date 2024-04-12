@@ -34,7 +34,7 @@ variable "gcs_storage_class" {
 variable "app_name" {
   type        = string
   description = "Retail Sales Analytics"
-  default     = "retail-sales-analytics"
+  default     = "retailanalytics"
 }
 
 variable "container_cpu" {
@@ -68,7 +68,7 @@ variable "repository" {
 variable "database_user" {
   type        = string
   description = "The username of the Postgres database."
-  default     = "mageuser"
+  default     = "postgres"
 }
 
 variable "database_password" {
@@ -80,7 +80,8 @@ variable "database_password" {
 variable "docker_image" {
   type        = string
   description = "The Docker image url in the Artifact Registry repository to be deployed to Cloud Run"
-  default     = "region-docker.pkg.dev/project_id/repository_name/mageai"
+  # default     = "region-docker.pkg.dev/project_id/repository_name/mageai"
+  default     = "docker.io/onubrooks/retail_sales_etl-mage"
 }
 
 variable "domain" {
