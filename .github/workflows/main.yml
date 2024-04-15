@@ -8,7 +8,7 @@ on:
 env:
   GAR_LOCATION: europe-west1
   GOOGLE_CLOUD_RUN_SERVICE_NAME: retailanalytics
-  IMAGE: mageai
+  IMAGE: mageprod
   PROJECT_ID: zoomcamp-de-411412
   REPOSITORY: mageprod
 
