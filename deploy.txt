@@ -1,0 +1,24 @@
+Build image: `docker build --tag mageprod:latest .`
+
+Run image: `docker run -it -p 6789:6789 mageprod:latest /app/run_app.sh mage start retail_sales_etl`
+
+Visit: localhost:6789 and make sure that it's working.
+
+Note: GCP artifact redistry uses linux64 only so we need to use linux64 instead:
+`docker pull --platform linux/amd64 mageai/mageai:latest`
+`docker build --platform linux/amd64 --tag mageprod:linux64 .`
+`docker run -it -p 6789:6789 mageprod:linux64 /app/run_app.sh mage start retail_sales_etl` (this shouldn't work on your Mac OS)
+
+Set up artifact registry using this link: https://docs.mage.ai/production/deploying-to-cloud/gcp/gcp-artifact-registry
+
+docker tag mageprod:linux64 europe-west1-docker.pkg.dev/zoomcamp-de-411412/mageprod/mageprod:linux64
+
+docker push europe-west1-docker.pkg.dev/zoomcamp-de-411412/mageprod/mageprod:linux64
+
+Push to docker hub:
+
+docker tag mageprod:latest onubrooks/mageprod:latest
+docker push onubrooks/mageprod:latest
+
+docker tag mageprod:linux64 onubrooks/mageprod:linux64
+docker push onubrooks/mageprod:linux64

@@ -1,14 +1,7 @@
-# terraform {
-#   required_providers {
-#     google = {
-#       source  = "hashicorp/google"
-#       version = "5.6.0"
-#     }
-#   }
-# }
+# main.tf
 
 terraform {
-  required_version = ">= 1.6"
+  required_version = ">= 0.14"
 
   required_providers {
     # Cloud Run support was added on 3.3.0
@@ -17,37 +10,9 @@ terraform {
 }
 
 provider "google" {
-  credentials = file(var.credentials)
-  project     = var.project
-  region      = var.region
-}
-
-resource "google_storage_bucket" "demo_bucket" {
-  name          = var.gcs_bucket_name
-  location      = var.location
-  force_destroy = true
-
-  lifecycle_rule {
-    condition {
-      age = 3
-    }
-    action {
-      type = "Delete"
-    }
-  }
-  lifecycle_rule {
-    condition {
-      age = 1
-    }
-    action {
-      type = "AbortIncompleteMultipartUpload"
-    }
-  }
-}
-
-resource "google_bigquery_dataset" "demo_dataset" {
-  dataset_id = var.bq_dataset_name
-  location   = var.location
+  project = var.project
+  region  = var.region
+  zone    = var.zone
 }
 
 # #############################################
@@ -95,55 +60,33 @@ resource "google_project_service" "sqladmin" {
   disable_on_destroy = false
 }
 
-# #############################################
-# #    Google Artifact Registry Repository    #
-# #############################################
-# # Create Artifact Registry Repository for Docker containers
-# resource "google_artifact_registry_repository" "my_docker_repo" {
-#   location = var.region
-#   repository_id = var.repository
-#   description = "My docker repository"
-#   format = "DOCKER"
-#   depends_on = [time_sleep.wait_30_seconds]
-# }
-# # Create a service account
-# resource "google_service_account" "docker_pusher" {
-#   account_id   = "docker-pusher"
-#   display_name = "Docker Container Pusher"
-#   depends_on =[time_sleep.wait_30_seconds]
-# }
-# # Give service account permission to push to the Artifact Registry Repository
-# resource "google_artifact_registry_repository_iam_member" "docker_pusher_iam" {
-#   location = google_artifact_registry_repository.my_docker_repo.location
-#   repository =  google_artifact_registry_repository.my_docker_repo.repository_id
-#   role   = "roles/artifactregistry.writer"
-#   member = "serviceAccount:${google_service_account.docker_pusher.email}"
-#   depends_on = [
-#     google_artifact_registry_repository.my_docker_repo,
-#     google_service_account.docker_pusher
-#     ]
-# }
-
 
 # Create the Cloud Run service
 resource "google_cloud_run_service" "run_service" {
-  name = var.app_name
+  name     = var.app_name
   location = var.region
 
   template {
     spec {
       containers {
         image = var.docker_image
-        command = ["mage", "start", "default_repo", "--manage-instance", "1"]
         ports {
           container_port = 6789
         }
         resources {
           limits = {
-            cpu     = var.container_cpu
-            memory  = var.container_memory
+            cpu    = var.container_cpu
+            memory = var.container_memory
           }
         }
+        # env {
+        #   name  = "FILESTORE_IP_ADDRESS"
+        #   value = google_filestore_instance.instance.networks[0].ip_addresses[0]
+        # }
+        # env {
+        #   name  = "FILE_SHARE_NAME"
+        #   value = "share1"
+        # }
         env {
           name  = "GCP_PROJECT_ID"
           value = var.project
@@ -156,51 +99,67 @@ resource "google_cloud_run_service" "run_service" {
           name  = "GCP_SERVICE_NAME"
           value = var.app_name
         }
+        # env {
+        #   name  = "MAGE_DATABASE_CONNECTION_URL"
+        #   value = "postgresql://${var.database_user}:${var.database_password}@/${var.app_name}-db?host=/cloudsql/${google_sql_database_instance.instance.connection_name}"
+        # }
         env {
-          name  = "FILESTORE_IP_ADDRESS"
-          value = google_filestore_instance.instance.networks[0].ip_addresses[0]
+          name = "PROJECT_NAME"
+          value = "${var.project_name}"
         }
-        env {
-          name  = "FILE_SHARE_NAME"
-          value = "share1"
-        }
-        env {
-          name  = "MAGE_DATABASE_CONNECTION_URL"
-          value = "postgresql://${var.database_user}:${var.database_password}@/${var.app_name}-db?host=/cloudsql/${google_sql_database_instance.instance.connection_name}"
-        }
+        # env {
+        #   name = "POSTGRES_DBNAME"
+        #   value = "postgres"
+        # }
+        # env {
+        #   name = "POSTGRES_SCHEMA"
+        #   value = "${var.database_schema}"
+        # }
+        # env {
+        #   name = "POSTGRES_USER"
+        #   value = "${var.database_user}"
+        # }
+        # env {
+        #   name = "POSTGRES_PASSWORD"
+        #   value = "${var.database_password}"
+        # }
+        # env {
+        #   name = "POSTGRES_HOST"
+        #   value = "${google_sql_database_instance.instance.public_ip_address}"
+        # }
+        # env {
+        #   name = "POSTGRES_PORT"
+        #   value = "${var.database_port}"
+        # }
         env {
           name  = "ULIMIT_NO_FILE"
           value = 16384
         }
-        env {
-          name  = "path_to_keyfile" # Try not to change this environment variable name
-          value = var.credentials
-        }
-        volume_mounts {
-          mount_path = "/secrets/gcp"
-          name       = "secrets-service_account_credentials"
-        }
+        # volume_mounts {
+        #   mount_path = "/secrets/bigquery"
+        #   name       = "secret-bigquery-key"
+        # }
       }
-      volumes {
-        name = "secrets-service_account_credentials"
-        secret {
-          secret_name  = "service_account_credentials"
-          items {
-            key  = "latest"
-            path = "service_account_credentials"
-          }
-        }
-      }
+      # volumes {
+      #   name = "secret-bigquery-key"
+      #   secret {
+      #     secret_name  = "bigquery_key"
+      #     items {
+      #       key  = "latest"
+      #       path = "bigquery_key"
+      #     }
+      #   }
+      # }
     }
 
     metadata {
       annotations = {
         "autoscaling.knative.dev/minScale"         = "1"
-        "run.googleapis.com/cloudsql-instances"    = google_sql_database_instance.instance.connection_name
+        # "run.googleapis.com/cloudsql-instances"    = google_sql_database_instance.instance.connection_name
         "run.googleapis.com/cpu-throttling"        = false
         "run.googleapis.com/execution-environment" = "gen2"
-        "run.googleapis.com/vpc-access-connector"  = google_vpc_access_connector.connector.id
-        "run.googleapis.com/vpc-access-egress"     = "private-ranges-only"
+        # "run.googleapis.com/vpc-access-connector"  = google_vpc_access_connector.connector.id
+        # "run.googleapis.com/vpc-access-egress"     = "private-ranges-only"
       }
     }
   }
