@@ -1,8 +1,10 @@
 FROM mageai/mageai:latest
 ARG PIP=pip3
 
-ARG PROJECT_NAME=retail_sales_etl
-ARG USER_CODE_PATH=/home/src/${PROJECT_NAME}
+ENV PROJECT_DIR=
+
+ARG PROJECT_NAME=
+ARG USER_CODE_PATH=/home/src/${PROJECT_DIR}
 
 # Add Debian Bullseye repository
 RUN echo 'deb http://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list
@@ -22,7 +24,7 @@ COPY requirements.txt ${USER_CODE_PATH}requirements.txt
 
 RUN ${PIP} install -r ${USER_CODE_PATH}requirements.txt
 
-COPY . /home/src/
+COPY . /home/src/${PROJECT_DIR}
 
 ENV MAGE_DATA_DIR=
 

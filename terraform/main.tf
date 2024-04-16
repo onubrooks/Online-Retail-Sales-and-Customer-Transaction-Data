@@ -99,38 +99,16 @@ resource "google_cloud_run_service" "run_service" {
           name  = "GCP_SERVICE_NAME"
           value = var.app_name
         }
-        # env {
-        #   name  = "MAGE_DATABASE_CONNECTION_URL"
-        #   value = "postgresql://${var.database_user}:${var.database_password}@/${var.app_name}-db?host=/cloudsql/${google_sql_database_instance.instance.connection_name}"
-        # }
+        
         env {
           name = "PROJECT_NAME"
           value = "${var.project_name}"
         }
-        # env {
-        #   name = "POSTGRES_DBNAME"
-        #   value = "postgres"
-        # }
-        # env {
-        #   name = "POSTGRES_SCHEMA"
-        #   value = "${var.database_schema}"
-        # }
-        # env {
-        #   name = "POSTGRES_USER"
-        #   value = "${var.database_user}"
-        # }
-        # env {
-        #   name = "POSTGRES_PASSWORD"
-        #   value = "${var.database_password}"
-        # }
-        # env {
-        #   name = "POSTGRES_HOST"
-        #   value = "${google_sql_database_instance.instance.public_ip_address}"
-        # }
-        # env {
-        #   name = "POSTGRES_PORT"
-        #   value = "${var.database_port}"
-        # }
+        env {
+          name = "PROJECT_DIR"
+          value = "${var.project_name}"
+        }
+        
         env {
           name  = "ULIMIT_NO_FILE"
           value = 16384
