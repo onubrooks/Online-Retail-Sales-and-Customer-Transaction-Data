@@ -37,6 +37,12 @@ variable "app_name" {
   default     = "retailanalytics"
 }
 
+variable "project_name" {
+  type        = string
+  description = "Retail Sales Analytics"
+  default     = "retail_sales_etl"
+}
+
 variable "container_cpu" {
   description = "Container cpu"
   default     = "2000m"
@@ -56,32 +62,44 @@ variable "region" {
 variable "zone" {
   type        = string
   description = "The default compute zone"
-  default     = "europe-west1-a"
+  default     = "europe-west1-b"
 }
 
 variable "repository" {
   type        = string
   description = "The name of the Artifact Registry repository to be created"
-  default     = "mage-data-prep"
+  default     = "mageprod"
 }
 
-variable "database_user" {
-  type        = string
-  description = "The username of the Postgres database."
-  default     = "postgres"
-}
+# variable "database_schema" {
+#   type        = string
+#   description = "The schema of the Postgres database."
+#   default     = "magic"
+# }
 
-variable "database_password" {
-  type        = string
-  description = "The password of the Postgres database."
-  sensitive   = true
-}
+# variable "database_user" {
+#   type        = string
+#   description = "The username of the Postgres database."
+#   default     = "postgres"
+# }
+
+# variable "database_password" {
+#   type        = string
+#   description = "The password of the Postgres database."
+#   sensitive   = true
+# }
+
+# variable "database_port" {
+#   type        = string
+#   description = "The port of the Postgres database."
+#   default     = "5432"
+# }
 
 variable "docker_image" {
   type        = string
   description = "The Docker image url in the Artifact Registry repository to be deployed to Cloud Run"
-  # default     = "region-docker.pkg.dev/project_id/repository_name/mageai"
-  default     = "docker.io/onubrooks/retail_sales_etl-mage"
+  default     = "europe-west1-docker.pkg.dev/zoomcamp-de-411412/mageprod/mageprod:linux64"
+  # default     = "docker.io/onubrooks/retail_sales_etl-mage"
 }
 
 variable "domain" {

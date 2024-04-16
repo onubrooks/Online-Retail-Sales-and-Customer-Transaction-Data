@@ -1,6 +1,7 @@
 FROM mageai/mageai:latest
 ARG PIP=pip3
 
+ARG PROJECT_NAME=retail_sales_etl
 ARG USER_CODE_PATH=/home/src/${PROJECT_NAME}
 
 # Add Debian Bullseye repository
@@ -24,3 +25,5 @@ RUN ${PIP} install -r ${USER_CODE_PATH}requirements.txt
 COPY . /home/src/
 
 ENV MAGE_DATA_DIR=
+
+CMD ["/bin/sh", "-c", "/app/run_app.sh"]
