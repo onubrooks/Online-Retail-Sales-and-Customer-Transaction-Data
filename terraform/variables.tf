@@ -50,7 +50,7 @@ variable "container_cpu" {
 
 variable "container_memory" {
   description = "Container memory"
-  default     = "2G"
+  default     = "4G"
 }
 
 variable "region" {
