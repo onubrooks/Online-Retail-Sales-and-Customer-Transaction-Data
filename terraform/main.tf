@@ -42,21 +42,9 @@ resource "google_project_service" "resourcemanager" {
   disable_on_destroy = false
 }
 
-# Enable VCP Access API
-resource "google_project_service" "vpcaccess" {
-  service            = "vpcaccess.googleapis.com"
-  disable_on_destroy = false
-}
-
 # Enable Secret Manager API
 resource "google_project_service" "secretmanager" {
   service            = "secretmanager.googleapis.com"
-  disable_on_destroy = false
-}
-
-# Enable Cloud SQL Admin API
-resource "google_project_service" "sqladmin" {
-  service            = "sqladmin.googleapis.com"
   disable_on_destroy = false
 }
 
@@ -79,14 +67,7 @@ resource "google_cloud_run_service" "run_service" {
             memory = var.container_memory
           }
         }
-        # env {
-        #   name  = "FILESTORE_IP_ADDRESS"
-        #   value = google_filestore_instance.instance.networks[0].ip_addresses[0]
-        # }
-        # env {
-        #   name  = "FILE_SHARE_NAME"
-        #   value = "share1"
-        # }
+        
         env {
           name  = "GCP_PROJECT_ID"
           value = var.project

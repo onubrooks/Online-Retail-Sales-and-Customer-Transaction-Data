@@ -71,30 +71,6 @@ variable "repository" {
   default     = "mageprod"
 }
 
-# variable "database_schema" {
-#   type        = string
-#   description = "The schema of the Postgres database."
-#   default     = "magic"
-# }
-
-# variable "database_user" {
-#   type        = string
-#   description = "The username of the Postgres database."
-#   default     = "postgres"
-# }
-
-# variable "database_password" {
-#   type        = string
-#   description = "The password of the Postgres database."
-#   sensitive   = true
-# }
-
-# variable "database_port" {
-#   type        = string
-#   description = "The port of the Postgres database."
-#   default     = "5432"
-# }
-
 variable "docker_image" {
   type        = string
   description = "The Docker image url in the Artifact Registry repository to be deployed to Cloud Run"
