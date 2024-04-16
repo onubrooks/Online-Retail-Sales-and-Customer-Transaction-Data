@@ -22,3 +22,8 @@ docker push onubrooks/mageprod:latest
 
 docker tag mageprod:linux64 onubrooks/mageprod:linux64
 docker push onubrooks/mageprod:linux64
+
+gcloud builds submit \
+  --region=europe-west1 \
+  --tag=europe-west1-docker.pkg.dev/zoomcamp-de-411412/mageprod/mageprod:linux64 \
+    .
