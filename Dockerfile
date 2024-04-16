@@ -26,6 +26,6 @@ RUN rm /etc/apt/sources.list.d/bullseye.list
 
 RUN ${PIP} install pyspark
 
-# ENV PYTHONPATH="${PYTHONPATH}:/home/mage"
+ENV PYTHONPATH="${PYTHONPATH}:/home/mage"
 
 CMD ["/bin/sh", "-c", "/app/run_app.sh"]
