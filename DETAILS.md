@@ -155,7 +155,7 @@ For improved query performance on frequently accessed data subsets, BigQuery off
 
 ## **6. Data Visualization with Looker Studio**
 
-We captured the following metrics:
+The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239093-6349-4806-83b1-20e81e8de904/page/zcIvD). We captured the following metrics:
 
 ### Shopping Trends by Demographics and Payment Methods
 
