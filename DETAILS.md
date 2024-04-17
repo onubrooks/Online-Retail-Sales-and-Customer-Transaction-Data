@@ -159,7 +159,7 @@ The data pipeline transforms the raw data into multiple BigQuery tables, each ca
 
 The PySpark script utilizes the `createOrReplaceTempView` function to create temporary views representing the transformed data. These views can then be used within SQL queries to write the data to permanent BigQuery tables defined using BigQuery's DDL statements.
 
-### 5.2. Partitioning and Clustering (Optional)
+### 5.2. Partitioning and Clustering
 
 For improved query performance on frequently accessed data subsets, BigQuery offers partitioning and clustering techniques. Here's a breakdown of their potential application in this project:
 
@@ -212,3 +212,32 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 
 The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239093-6349-4806-83b1-20e81e8de904/page/zcIvD).
 
+## **7. Bonus: Building Docker Image and Pushing to the Artifact Registry**
+
+At the root of the project is a Dockerfile containing all the Mage code. This file can be used to build a docker image locally or on cloud build and the resulting image will be added to the `variables.tf` file in the terraform folder as the docker image to be deployed on Google Cloud Run. Setting up is very straightforward:
+
+### Building Locally
+
+Note: GCP artifact redistry uses linux64 only so we need to use linux64 if running on a Mac computer:
+`docker build --platform linux/amd64 --tag <image>:<tag> .`
+
+Set up artifact registry using this link: https://docs.mage.ai/production/deploying-to-cloud/gcp/gcp-artifact-registry
+
+### Building on Google Cloud Build
+
+After setting up your artifact registry and region, run the following command:
+
+`gcloud builds submit \
+  --region=<region> \
+  --tag=<region>-docker.pkg.dev/<project-id>/<repository>/<image:tag> \
+    .`
+
+After this is successful, replace the variable for container image in your `variables.tf` file with the new image.
+
+```tf
+variable "docker_image" {
+  type        = string
+  description = "The Docker image url in the Artifact Registry repository to be deployed to Cloud Run"
+  default     = "<region>-docker.pkg.dev/<project-id>/<repository>/<image:tag>"
+}
+```
