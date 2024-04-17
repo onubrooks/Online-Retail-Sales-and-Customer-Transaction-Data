@@ -79,6 +79,8 @@ def write_to_bigquery(df, output_table):
       .option("credentialsFile", credentials_path) \
       .option("parentProject", project_id) \
       .option("table", output_table) \
+      .partitionBy("invoice_date") \
+      .clusterBy("category") \
       .mode("overwrite") \
       .save()
 

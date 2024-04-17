@@ -4,7 +4,7 @@ if 'test' not in globals():
     from mage_ai.data_preparation.decorators import test
 
 import pandas as pd
-from retail_sales_etl.utils.utils import schema
+from retail_sales_etl.utils.variables import schema
 
 @transformer
 def transform(data, *args, **kwargs):
