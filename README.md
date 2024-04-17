@@ -55,6 +55,9 @@ See [the details section](https://github.com/onubrooks/Online-Retail-Sales-and-C
 
 ## Reproducing the Project
 
+<img width="911" alt="Screenshot 2024-04-17 at 15 51 48" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/8b2dde94-208a-4701-b58d-73e9b5147858">
+
+
 ### Install Gcloud and Terraform
 
 * Install `gcloud` SDK and Terraform: This project assumes you already have `gcloud` CLI installed as well as Terraform. If not, you can find installation instructions [here](https://cloud.google.com/sdk) and [here](https://developer.hashicorp.com/terraform/install).
