@@ -9,6 +9,14 @@ WORKDIR ${MAGE_CODE_PATH}
 
 COPY mage/${PROJECT_NAME} ${USER_CODE_PATH}
 
+# Download gcs-connector-hadoop3-2.2.5.jar
+RUN curl -L https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar -o ${USER_CODE_PATH}/spark-lib/gcs-connector-hadoop3-2.2.5.jar
+
+# Download spark-3.5-bigquery-0.37.0.jar
+RUN curl -L https://github.com/GoogleCloudDataproc/spark-bigquery-connector/releases/download/0.37.0/spark-3.5-bigquery-0.37.0.jar -o ${USER_CODE_PATH}/spark-lib/spark-3.5-bigquery-0.37.0.jar
+
+RUN touch ${USER_CODE_PATH}/secrets/google.json
+
 ENV USER_CODE_PATH=${USER_CODE_PATH}
 
 # Install custom Python libraries
