@@ -2,6 +2,8 @@
 
 This section dives deeper into each of the project's core aspects:
 
+<img width="663" alt="Screenshot 2024-04-17 at 14 34 17" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/d4dfd055-9a5c-4743-82fa-32dce9fe2b6b">
+
 ## **1. Data Acquisition and Ingestion**
 
 This section dives into how we gather and integrate retail sales and customer transaction data from Kaggle.
@@ -42,6 +44,9 @@ Terraform configuration files (.tf files) define the cloud resources required fo
 * **Cloud Storage Buckets:** Terraform creates one or more Cloud Storage buckets to store the raw and processed data files used throughout the pipeline.
 * **BigQuery Datasets and Tables:** BigQuery datasets and tables are defined within Terraform configurations, specifying the schema and structure for the data to be stored in BigQuery.
 * **Cloud Run Service for Mage Server:** Terraform provisions a Cloud Run service to deploy and manage the Mage server container image. This service allows us to run the Mage workflow orchestration engine in a scalable and serverless manner.
+
+<img width="776" alt="Screenshot 2024-04-17 at 15 40 25" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/b4782e17-308a-4955-99c7-39620d8cc7fb">
+
 
 ### 2.2. Benefits of Infrastructure as Code (IaC)
 
@@ -120,6 +125,9 @@ BigQuery serves as the central data warehouse for our project, storing the trans
 
 The data pipeline transforms the raw data into multiple BigQuery tables, each catering to specific analysis needs. Here's the final table schema design:
 
+<img width="1007" alt="Screenshot 2024-04-17 at 15 44 16" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/1094cd45-46a3-42e8-8cb7-6d11adf083b8">
+
+
 * **Sales Transaction Table:**
   * `customer_id`: Unique identifier for the customer (if available).
   * `invoice_no`: Unique identifier for the sales invoice.
@@ -136,6 +144,9 @@ The data pipeline transforms the raw data into multiple BigQuery tables, each ca
 * **Aggregated Sales Tables:**
   * This tables stores pre-aggregated sales data based on specific business requirements.
   * Four analytics tables were created as detailed in the Looker analytics dashboard section below.
+ 
+<img width="980" alt="Screenshot 2024-04-17 at 15 43 11" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/818f2eab-ccca-48c5-90e6-3e732a459e3d">
+
 
 **Data Definition Language (DDL):**
 
@@ -163,11 +174,17 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Understand preferred payment methods for different demographics.
 * Visualisation: A stacked bar chart with customer country on the x-axis, and total sales on the y-axis. Segments within each country can be further broken down by age category, gender, and payment method using color or stacking.
 
+<img width="710" alt="Screenshot 2024-04-17 at 14 33 44" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/107e161a-6ea5-4f2e-a70f-7b1a74c62ca9">
+
+
 ### Analyze Product Category Performance
 
 * Determine which product categories generate the most sales and revenue.
 * Identify potential areas for product development or marketing focus.
 * Visualisation: A pie(donought) chart with product category on the x-axis and total revenue on the y-axis. Represents the data proportionally to show the contribution of each category to overall sales.
+
+<img width="536" alt="Screenshot 2024-04-17 at 14 33 58" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/a861adcb-cba6-48ed-ba48-e2d00d3dcba7">
+
 
 ### Explore Product Performance Across Shopping Malls
 
@@ -175,8 +192,16 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Identify trends in product popularity across different malls.
 * Visualisation: A line chart with invoice date on the x-axis and total sales on the y-axis. Uses different lines to represent each shopping mall. Overlays another line chart on the same graph (secondary y-axis) to show total quantity sold for comparison.
 
+<img width="663" alt="Screenshot 2024-04-17 at 14 34 17" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ccde611b-8d94-45df-bfc4-9a6ce4b0a6f7">
+
+
 ### Investigate Customer Purchase Behavior
 
 * Segment customers based on purchase frequency and total spending.
 * Identify potential high-value customers for targeted marketing efforts.
 * Visualisation: A scatter plot with purchase frequency on the x-axis and total amount spent on the y-axis. Color-code data points based on customer country or another relevant category.
+
+<img width="523" alt="Screenshot 2024-04-17 at 14 34 30" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ceaaffed-8631-44d9-8fcf-9197fb5db909">
+
+The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239093-6349-4806-83b1-20e81e8de904/page/zcIvD).
+
