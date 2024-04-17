@@ -68,6 +68,9 @@ This section explores the heart of our data pipeline – the workflow orchestrat
 
 The Mage workflow is structured as a series of interconnected stages, each encapsulating a specific data processing step. Here's a breakdown of the typical stages involved:
 
+<img width="1373" alt="Screenshot 2024-04-17 at 15 49 02" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/6fce56cd-44d0-491b-9ac3-382d86ea46f4">
+
+
 1. **Data Acquisition:** This stage utilizes the `requests` library (or similar tool) to download the Kaggle datasets from their respective URLs. Downloaded files are staged within a designated location.
 2. **Data Preprocessing:** This stage includes tasks like cleaning the raw data, handling missing values, or formatting the data to adhere to a specific schema.
 3. **Data Transformation:** The PySpark engine takes center stage here. Complex transformations, aggregations, and feature engineering are applied to the preprocessed data using PySpark functionalities.
@@ -78,6 +81,9 @@ The Mage workflow is structured as a series of interconnected stages, each encap
 ### 3.2. Managing Dependencies and Ensuring Execution Flow
 
 Mage excels at handling dependencies between workflow stages. Each stage can explicitly declare its dependencies on other stages it requires to run successfully. This ensures a logical execution order, where a stage only starts after all its preceding dependencies have completed without errors.
+
+<img width="713" alt="Screenshot 2024-04-17 at 15 50 50" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/4b5f5473-1c5c-4b62-a0b2-cb6a1948144e">
+
 
 Mage also offers features for error handling and retry logic. If a stage encounters an issue, Mage can be configured to attempt retries or notify designated personnel for intervention. This ensures the overall pipeline's robustness and minimizes disruptions.
 
