@@ -15,6 +15,7 @@ RUN curl -L https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-
 # Download spark-3.5-bigquery-0.37.0.jar
 RUN curl -L https://github.com/GoogleCloudDataproc/spark-bigquery-connector/releases/download/0.37.0/spark-3.5-bigquery-0.37.0.jar -o ${USER_CODE_PATH}/spark-lib/spark-3.5-bigquery-0.37.0.jar
 
+RUN mkdir ${USER_CODE_PATH}/secrets
 RUN touch ${USER_CODE_PATH}/secrets/google.json
 
 ENV USER_CODE_PATH=${USER_CODE_PATH}
