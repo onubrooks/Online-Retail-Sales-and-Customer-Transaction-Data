@@ -9,6 +9,8 @@ WORKDIR ${MAGE_CODE_PATH}
 
 COPY mage/${PROJECT_NAME} ${USER_CODE_PATH}
 
+RUN mkdir ${USER_CODE_PATH}/spark-lib
+
 # Download gcs-connector-hadoop3-2.2.5.jar
 RUN curl -L https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-2.2.5.jar -o ${USER_CODE_PATH}/spark-lib/gcs-connector-hadoop3-2.2.5.jar
 
