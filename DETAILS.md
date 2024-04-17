@@ -218,10 +218,17 @@ At the root of the project is a Dockerfile containing all the Mage code. This fi
 
 ### Building Locally
 
+Because the mage user code is located in the `retail_sales_etl` folder, we'll use it as our project name.
+Build the image: `docker build --tag <image>:<tag> .`
+
+Run image: `docker run -it -p 6789:6789 <image>:<tag> /app/run_app.sh mage start retail_sales_etl`
+
+Visit: localhost:6789 and make sure that it's working.
+
 Note: GCP artifact redistry uses linux64 only so we need to use linux64 if running on a Mac computer:
 `docker build --platform linux/amd64 --tag <image>:<tag> .`
 
-Set up artifact registry using this link: https://docs.mage.ai/production/deploying-to-cloud/gcp/gcp-artifact-registry
+Set up artifact registry on your Google cloud account using this link: https://docs.mage.ai/production/deploying-to-cloud/gcp/gcp-artifact-registry
 
 ### Building on Google Cloud Build
 
@@ -241,3 +248,9 @@ variable "docker_image" {
   default     = "<region>-docker.pkg.dev/<project-id>/<repository>/<image:tag>"
 }
 ```
+
+You can also deploy the image to your Docker account:
+
+Login: `docker login`
+Build: `docker tag <image:tag> <docker-username>/<image:tag>`
+Push: `docker push <docker-username>/<image:tag>`
