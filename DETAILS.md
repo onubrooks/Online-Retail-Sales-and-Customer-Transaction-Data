@@ -2,8 +2,6 @@
 
 This section dives deeper into each of the project's core aspects:
 
-<img width="663" alt="Screenshot 2024-04-17 at 14 34 17" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/d4dfd055-9a5c-4743-82fa-32dce9fe2b6b">
-
 ## **1. Data Acquisition and Ingestion**
 
 This section dives into how we gather and integrate retail sales and customer transaction data from Kaggle.
@@ -36,6 +34,9 @@ This Mage stage interacts with the Kaggle API to securely retrieve the data file
 ## **2. Cloud Infrastructure with Terraform**
 
 This section delves into the infrastructure layer of our project, built and managed using Terraform, an Infrastructure as Code (IaC) tool.
+
+<img width="577" alt="Screenshot 2024-04-17 at 15 47 00" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/c8d02b9a-ba61-48b1-8e41-fc6ccb07c663">
+
 
 ### 2.1. Terraform Configuration and Provisioned Resources
 
