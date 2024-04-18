@@ -102,7 +102,6 @@ See [the details section](https://github.com/onubrooks/Online-Retail-Sales-and-C
 
 ![Mage Runs](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/da8cf29c-f6af-4b65-985c-17a2140818c4)
 
-
 ### **8. Continous Integration/Deployment**
 
 * A CI/CD pipeline using Github Actions builds the docker image of the changed mage files, pushes to the Artifact Registry and deploys to Google Cloud Run.
