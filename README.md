@@ -1,5 +1,8 @@
 # Online Retail Sales and Customer Transaction Data Ingestion and Analysis
 
+![Retail Sales Analytics ETL Architecture drawio](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/7de043d8-9991-4108-bcba-fe7ca0b09013)
+
+
 This project tackles the challenge of integrating and analyzing retail data from various sources (Kaggle datasets focusing on malls in the UK and Turkey) to glean valuable insights into customer behavior, sales trends, and potential areas for improvement in retail operations.
 
 This is an end to end data pipeline for ingesting, processing, transforming and modelling Online Retail Sales and Customer Transaction Data for analytics and reporting dashboards.
