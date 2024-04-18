@@ -98,6 +98,10 @@ See [the details section](https://github.com/onubrooks/Online-Retail-Sales-and-C
 * Select 'retail_sales_etl' pipeline.
 * **One important thing**: The Dockerfile creates a file in `/retail_sales_etl/secrets/google.json`. This file is blank and you should copy your credentials JSON file contents into this file. This will enable the server to communicate with Google Cloud services.
 * You can choose to run the pipeline manually or trigger the run via API. See example CURL command in [trigger.sh](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/mage/trigger.sh)
+* Navigate to the Runs tab (Below triggers) on the left of the dashboard and observe the block runs, it should look like the image below:
+
+![Mage Runs](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/da8cf29c-f6af-4b65-985c-17a2140818c4)
+
 
 ### **8. Continous Integration/Deployment**
 
