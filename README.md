@@ -1,17 +1,17 @@
 # Online Retail Sales and Customer Transaction Data Ingestion and Analysis
 
-![Retail Sales Analytics ETL Architecture drawio](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/7de043d8-9991-4108-bcba-fe7ca0b09013)
-
+![Retail Sales Analytics ETL Architecture](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/7de043d8-9991-4108-bcba-fe7ca0b09013)
 
 This project tackles the challenge of integrating and analyzing retail data from various sources (Kaggle datasets focusing on malls in the UK and Turkey) to glean valuable insights into customer behavior, sales trends, and potential areas for improvement in retail operations.
 
 This is an end to end data pipeline for ingesting, processing, transforming and modelling Online Retail Sales and Customer Transaction Data for analytics and reporting dashboards.
 
 This README document is devided into 4 sections, feel free to skip ahead to any section:
-Problem Description
-Project Highlights
-Project Deep Dive
-Reproducing the Project.
+
+1. [Problem Description](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/README.md#problem-description)
+2. [Project Highlights](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/README.md#project-highlights)
+3. [Project Technical Deep-Dive](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/README.md#project-deep-dive-and-detailed-sections)
+4. [Reproducing the Project](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/README.md#reproducing-the-project)
 
 ## Problem Description
 
@@ -58,8 +58,22 @@ See [the details section](https://github.com/onubrooks/Online-Retail-Sales-and-C
 
 ## Reproducing the Project
 
-<img width="911" alt="Screenshot 2024-04-17 at 15 51 48" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/8b2dde94-208a-4701-b58d-73e9b5147858">
+### Prequisites
 
+1. A Google Cloud Platform (GCP) account along with a project.
+2. A GCP service account to grant access to Google Cloud Platform services.
+3. The GCP service account should have the following permissions:
+
+    * Artifact Registry Writer
+    * BigQuery Admin
+    * Cloud Run developer
+    * Compute Admin
+    * Secret Manager Secret Accessor
+    * Storage Admin
+    * Storage Object Admin
+4. Docker should be installed on your machine.
+
+![Pipeline](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/8b2dde94-208a-4701-b58d-73e9b5147858)
 
 ### Install Gcloud and Terraform
 

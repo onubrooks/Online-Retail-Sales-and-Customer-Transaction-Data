@@ -1,5 +1,7 @@
 # Project Deep-Dive and Detailed Sections
 
+![Retail Sales Analytics ETL Architecture](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/7de043d8-9991-4108-bcba-fe7ca0b09013)
+
 This section dives deeper into each of the project's core aspects:
 
 ## **1. Data Acquisition and Ingestion**
@@ -35,7 +37,7 @@ This Mage stage interacts with the Kaggle API to securely retrieve the data file
 
 This section delves into the infrastructure layer of our project, built and managed using Terraform, an Infrastructure as Code (IaC) tool.
 
-<img width="577" alt="Screenshot 2024-04-17 at 15 47 00" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/c8d02b9a-ba61-48b1-8e41-fc6ccb07c663">
+![Terraform Logs](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/c8d02b9a-ba61-48b1-8e41-fc6ccb07c663)
 
 ### 2.1. Terraform Configuration and Provisioned Resources
 
@@ -45,7 +47,7 @@ Terraform configuration files (.tf files) define the cloud resources required fo
 * **BigQuery Datasets and Tables:** BigQuery datasets and tables are defined within Terraform configurations, specifying the schema and structure for the data to be stored in BigQuery.
 * **Cloud Run Service for Mage Server:** Terraform provisions a Cloud Run service to deploy and manage the Mage server container image. This service allows us to run the Mage workflow orchestration engine in a scalable and serverless manner.
 
-<img width="776" alt="Screenshot 2024-04-17 at 15 40 25" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/b4782e17-308a-4955-99c7-39620d8cc7fb">
+![Terraform Output](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/b4782e17-308a-4955-99c7-39620d8cc7fb)
 
 ### 2.2. Benefits of Infrastructure as Code (IaC)
 
@@ -66,7 +68,7 @@ This section explores the heart of our data pipeline – the workflow orchestrat
 
 The Mage workflow is structured as a series of interconnected stages, each encapsulating a specific data processing step. Here's a breakdown of the typical stages involved:
 
-<img width="1373" alt="Screenshot 2024-04-17 at 15 49 02" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/6fce56cd-44d0-491b-9ac3-382d86ea46f4">
+![Mage Dashboard](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/6fce56cd-44d0-491b-9ac3-382d86ea46f4)
 
 1. **Data Acquisition:** This stage utilizes the `requests` library (or similar tool) to download the Kaggle datasets from their respective URLs. Downloaded files are staged within a designated location.
 2. **Data Preprocessing:** This stage includes tasks like cleaning the raw data, handling missing values, or formatting the data to adhere to a specific schema.
@@ -79,7 +81,7 @@ The Mage workflow is structured as a series of interconnected stages, each encap
 
 Mage excels at handling dependencies between workflow stages. Each stage can explicitly declare its dependencies on other stages it requires to run successfully. This ensures a logical execution order, where a stage only starts after all its preceding dependencies have completed without errors.
 
-<img width="713" alt="Screenshot 2024-04-17 at 15 50 50" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/4b5f5473-1c5c-4b62-a0b2-cb6a1948144e">
+![Full Pipeline](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/4b5f5473-1c5c-4b62-a0b2-cb6a1948144e)
 
 Mage also offers features for error handling and retry logic. If a stage encounters an issue, Mage can be configured to attempt retries or notify designated personnel for intervention. This ensures the overall pipeline's robustness and minimizes disruptions.
 
@@ -128,7 +130,7 @@ BigQuery serves as the central data warehouse for our project, storing the trans
 
 The data pipeline transforms the raw data into multiple BigQuery tables, each catering to specific analysis needs. Here's the final table schema design:
 
-<img width="1007" alt="Screenshot 2024-04-17 at 15 44 16" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/1094cd45-46a3-42e8-8cb7-6d11adf083b8">
+![Bigquery 1](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/1094cd45-46a3-42e8-8cb7-6d11adf083b8)
 
 * **Sales Transaction Table:**
   * `customer_id`: Unique identifier for the customer (if available).
@@ -147,7 +149,7 @@ The data pipeline transforms the raw data into multiple BigQuery tables, each ca
   * This tables stores pre-aggregated sales data based on specific business requirements.
   * Four analytics tables were created as detailed in the Looker analytics dashboard section below.
 
-<img width="980" alt="Screenshot 2024-04-17 at 15 43 11" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/818f2eab-ccca-48c5-90e6-3e732a459e3d">
+![Bigquery 2](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/818f2eab-ccca-48c5-90e6-3e732a459e3d)
 
 **Data Definition Language (DDL):**
 
@@ -175,7 +177,7 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Understand preferred payment methods for different demographics.
 * Visualisation: A stacked bar chart with customer country on the x-axis, and total sales on the y-axis. Segments within each country can be further broken down by age category, gender, and payment method using color or stacking.
 
-<img width="710" alt="Screenshot 2024-04-17 at 14 33 44" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/107e161a-6ea5-4f2e-a70f-7b1a74c62ca9">
+![Shopping Trends](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/107e161a-6ea5-4f2e-a70f-7b1a74c62ca9)
 
 ### Analyze Product Category Performance
 
@@ -183,7 +185,7 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Identify potential areas for product development or marketing focus.
 * Visualisation: A pie(donought) chart with product category on the x-axis and total revenue on the y-axis. Represents the data proportionally to show the contribution of each category to overall sales.
 
-<img width="536" alt="Screenshot 2024-04-17 at 14 33 58" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/a861adcb-cba6-48ed-ba48-e2d00d3dcba7">
+![Product Category](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/a861adcb-cba6-48ed-ba48-e2d00d3dcba7)
 
 ### Explore Product Performance Across Shopping Malls
 
@@ -191,7 +193,7 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Identify trends in product popularity across different malls.
 * Visualisation: A line chart with invoice date on the x-axis and total sales on the y-axis. Uses different lines to represent each shopping mall. Overlays another line chart on the same graph (secondary y-axis) to show total quantity sold for comparison.
 
-<img width="663" alt="Screenshot 2024-04-17 at 14 34 17" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ccde611b-8d94-45df-bfc4-9a6ce4b0a6f7">
+![Product Performance](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ccde611b-8d94-45df-bfc4-9a6ce4b0a6f7)
 
 ### Investigate Customer Purchase Behavior
 
@@ -199,7 +201,7 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Identify potential high-value customers for targeted marketing efforts.
 * Visualisation: A scatter plot with purchase frequency on the x-axis and total amount spent on the y-axis. Color-code data points based on customer country or another relevant category.
 
-<img width="523" alt="Screenshot 2024-04-17 at 14 34 30" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ceaaffed-8631-44d9-8fcf-9197fb5db909">
+![Customer Purchase](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ceaaffed-8631-44d9-8fcf-9197fb5db909)
 
 The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239093-6349-4806-83b1-20e81e8de904/page/zcIvD).
 
