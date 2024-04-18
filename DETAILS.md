@@ -37,7 +37,6 @@ This section delves into the infrastructure layer of our project, built and mana
 
 <img width="577" alt="Screenshot 2024-04-17 at 15 47 00" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/c8d02b9a-ba61-48b1-8e41-fc6ccb07c663">
 
-
 ### 2.1. Terraform Configuration and Provisioned Resources
 
 Terraform configuration files (.tf files) define the cloud resources required for the data pipeline. These files are version-controlled and reusable, ensuring a consistent and manageable infrastructure setup. Here's an overview of the resources typically provisioned by Terraform in this project:
@@ -47,7 +46,6 @@ Terraform configuration files (.tf files) define the cloud resources required fo
 * **Cloud Run Service for Mage Server:** Terraform provisions a Cloud Run service to deploy and manage the Mage server container image. This service allows us to run the Mage workflow orchestration engine in a scalable and serverless manner.
 
 <img width="776" alt="Screenshot 2024-04-17 at 15 40 25" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/b4782e17-308a-4955-99c7-39620d8cc7fb">
-
 
 ### 2.2. Benefits of Infrastructure as Code (IaC)
 
@@ -70,7 +68,6 @@ The Mage workflow is structured as a series of interconnected stages, each encap
 
 <img width="1373" alt="Screenshot 2024-04-17 at 15 49 02" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/6fce56cd-44d0-491b-9ac3-382d86ea46f4">
 
-
 1. **Data Acquisition:** This stage utilizes the `requests` library (or similar tool) to download the Kaggle datasets from their respective URLs. Downloaded files are staged within a designated location.
 2. **Data Preprocessing:** This stage includes tasks like cleaning the raw data, handling missing values, or formatting the data to adhere to a specific schema.
 3. **Data Transformation:** The PySpark engine takes center stage here. Complex transformations, aggregations, and feature engineering are applied to the preprocessed data using PySpark functionalities.
@@ -83,7 +80,6 @@ The Mage workflow is structured as a series of interconnected stages, each encap
 Mage excels at handling dependencies between workflow stages. Each stage can explicitly declare its dependencies on other stages it requires to run successfully. This ensures a logical execution order, where a stage only starts after all its preceding dependencies have completed without errors.
 
 <img width="713" alt="Screenshot 2024-04-17 at 15 50 50" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/4b5f5473-1c5c-4b62-a0b2-cb6a1948144e">
-
 
 Mage also offers features for error handling and retry logic. If a stage encounters an issue, Mage can be configured to attempt retries or notify designated personnel for intervention. This ensures the overall pipeline's robustness and minimizes disruptions.
 
@@ -134,7 +130,6 @@ The data pipeline transforms the raw data into multiple BigQuery tables, each ca
 
 <img width="1007" alt="Screenshot 2024-04-17 at 15 44 16" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/1094cd45-46a3-42e8-8cb7-6d11adf083b8">
 
-
 * **Sales Transaction Table:**
   * `customer_id`: Unique identifier for the customer (if available).
   * `invoice_no`: Unique identifier for the sales invoice.
@@ -151,9 +146,8 @@ The data pipeline transforms the raw data into multiple BigQuery tables, each ca
 * **Aggregated Sales Tables:**
   * This tables stores pre-aggregated sales data based on specific business requirements.
   * Four analytics tables were created as detailed in the Looker analytics dashboard section below.
- 
-<img width="980" alt="Screenshot 2024-04-17 at 15 43 11" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/818f2eab-ccca-48c5-90e6-3e732a459e3d">
 
+<img width="980" alt="Screenshot 2024-04-17 at 15 43 11" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/818f2eab-ccca-48c5-90e6-3e732a459e3d">
 
 **Data Definition Language (DDL):**
 
@@ -183,7 +177,6 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 
 <img width="710" alt="Screenshot 2024-04-17 at 14 33 44" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/107e161a-6ea5-4f2e-a70f-7b1a74c62ca9">
 
-
 ### Analyze Product Category Performance
 
 * Determine which product categories generate the most sales and revenue.
@@ -192,7 +185,6 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 
 <img width="536" alt="Screenshot 2024-04-17 at 14 33 58" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/a861adcb-cba6-48ed-ba48-e2d00d3dcba7">
 
-
 ### Explore Product Performance Across Shopping Malls
 
 * Discover top-selling products in each shopping mall over time.
@@ -200,7 +192,6 @@ The dashboard is live [here](https://lookerstudio.google.com/u/0/reporting/f0239
 * Visualisation: A line chart with invoice date on the x-axis and total sales on the y-axis. Uses different lines to represent each shopping mall. Overlays another line chart on the same graph (secondary y-axis) to show total quantity sold for comparison.
 
 <img width="663" alt="Screenshot 2024-04-17 at 14 34 17" src="https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/assets/26160845/ccde611b-8d94-45df-bfc4-9a6ce4b0a6f7">
-
 
 ### Investigate Customer Purchase Behavior
 
@@ -228,7 +219,7 @@ Visit: localhost:6789 and make sure that it's working.
 Note: GCP artifact redistry uses linux64 only so we need to use linux64 if running on a Mac computer:
 `docker build --platform linux/amd64 --tag <image>:<tag> .`
 
-Set up artifact registry on your Google cloud account using this link: https://docs.mage.ai/production/deploying-to-cloud/gcp/gcp-artifact-registry
+Set up artifact registry on your Google cloud account using this link: <https://docs.mage.ai/production/deploying-to-cloud/gcp/gcp-artifact-registry>
 
 ### Building on Google Cloud Build
 
