@@ -50,90 +50,71 @@ resource "google_project_service" "secretmanager" {
 
 
 # Create the Cloud Run service
-resource "google_cloud_run_service" "run_service" {
+resource "google_cloud_run_v2_service" "run_service" {
   name     = var.app_name
   location = var.region
+  ingress = "INGRESS_TRAFFIC_ALL"
 
   template {
-    spec {
-      containers {
-        image = var.docker_image
-        ports {
-          container_port = 6789
-        }
-        resources {
-          limits = {
-            cpu    = var.container_cpu
-            memory = var.container_memory
-          }
-        }
-        
-        env {
-          name  = "GCP_PROJECT_ID"
-          value = var.project
-        }
-        env {
-          name  = "GCP_REGION"
-          value = var.region
-        }
-        env {
-          name  = "GCP_SERVICE_NAME"
-          value = var.app_name
-        }
-        
-        env {
-          name = "PROJECT_NAME"
-          value = "${var.project_name}"
-        }
-        env {
-          name = "PROJECT_DIR"
-          value = "${var.project_name}"
-        }
-        
-        env {
-          name  = "ULIMIT_NO_FILE"
-          value = 16384
-        }
-        # volume_mounts {
-        #   mount_path = "/secrets/bigquery"
-        #   name       = "secret-bigquery-key"
-        # }
+    containers {
+      image = var.docker_image
+      ports {
+        container_port = 6789
       }
-      # volumes {
-      #   name = "secret-bigquery-key"
-      #   secret {
-      #     secret_name  = "bigquery_key"
-      #     items {
-      #       key  = "latest"
-      #       path = "bigquery_key"
-      #     }
-      #   }
+      resources {
+        limits = {
+          cpu    = var.container_cpu
+          memory = var.container_memory
+        }
+      }
+      
+      env {
+        name  = "GCP_PROJECT_ID"
+        value = var.project
+      }
+      env {
+        name  = "GCP_REGION"
+        value = var.region
+      }
+      env {
+        name  = "GCP_SERVICE_NAME"
+        value = var.app_name
+      }
+      
+      env {
+        name = "PROJECT_NAME"
+        value = "${var.project_name}"
+      }
+      env {
+        name = "PROJECT_DIR"
+        value = "${var.project_name}"
+      }
+      
+      env {
+        name  = "ULIMIT_NO_FILE"
+        value = 16384
+      }
+      # volume_mounts {
+      #   mount_path = "/secrets/bigquery"
+      #   name       = "secret-bigquery-key"
       # }
     }
-
-    metadata {
-      annotations = {
-        "autoscaling.knative.dev/minScale"         = "1"
-        "run.googleapis.com/cpu-throttling"        = false
-        "run.googleapis.com/execution-environment" = "gen2"
-      }
-    }
+    # volumes {
+    #   name = "secret-bigquery-key"
+    #   secret {
+    #     secret_name  = "bigquery_key"
+    #     items {
+    #       key  = "latest"
+    #       path = "bigquery_key"
+    #     }
+    #   }
+    # }
   }
 
   traffic {
-    percent         = 100
-    latest_revision = true
+    type = "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"
+    percent = 100
   }
-
-  metadata {
-    annotations = {
-      "run.googleapis.com/launch-stage" = "BETA"
-      "run.googleapis.com/ingress"      = "internal-and-cloud-load-balancing"
-      allow_unauthenticated = true
-    }
-  }
-
-  autogenerate_revision_name = true
 
   # Waits for the Cloud Run API to be enabled
   depends_on = [google_project_service.cloudrun]
@@ -141,8 +122,8 @@ resource "google_cloud_run_service" "run_service" {
 
 # Allow unauthenticated users to invoke the service
 resource "google_cloud_run_service_iam_member" "run_all_users" {
-  service  = google_cloud_run_service.run_service.name
-  location = google_cloud_run_service.run_service.location
+  service  = google_cloud_run_v2_service.run_service.name
+  location = google_cloud_run_v2_service.run_service.location
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
