@@ -6,7 +6,7 @@ This project tackles the challenge of integrating and analyzing retail data from
 
 This is an end to end data pipeline for ingesting, processing, transforming and modelling Online Retail Sales and Customer Transaction Data for analytics and reporting dashboards.
 
-This README document is devided into 4 sections, feel free to skip ahead to any section:
+This README document is divided into 4 sections, feel free to skip ahead to any section:
 
 1. [Problem Description](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/README.md#problem-description)
 2. [Project Highlights](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/README.md#project-highlights)
@@ -106,3 +106,7 @@ See [the details section](https://github.com/onubrooks/Online-Retail-Sales-and-C
 
 * A CI/CD pipeline using Github Actions builds the docker image of the changed mage files, pushes to the Artifact Registry and deploys to Google Cloud Run.
 * The Github Action script can be found here:  <https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/.github/workflows/main.yml>
+
+### **8. Bonus: Pushing Your Docker Image to GCP Artifact Registry
+
+Detailed instructions to push your image to the Artifact Registry can be found [here](https://github.com/onubrooks/Online-Retail-Sales-and-Customer-Transaction-Data/blob/main/DETAILS.md#7-bonus-building-docker-image-and-pushing-to-the-artifact-registry).
